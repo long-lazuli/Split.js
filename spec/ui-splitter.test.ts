@@ -28,13 +28,13 @@ describe('UISplitter - Dummy', () => {
     beforeEach( createElements )
     afterEach( removeElements )
 
-    it('is instantiable passing DOM elements', () => {
-        if (a && b) expect(new UISplitter([a, b])).toBeInstanceOf(UISplitter)
-    })
-
-    it('is instantiable passing elements by id', () => {
-        expect(new UISplitter(['#a', '#b'])).toBeInstanceOf(UISplitter)
-    })
+    // it('is instantiable passing DOM elements', () => {
+    //     if (a && b) expect(new UISplitter([a, b])).toBeInstanceOf(UISplitter)
+    // })
+    //
+    // it('is instantiable passing elements by id', () => {
+    //     expect(new UISplitter(['#a', '#b'])).toBeInstanceOf(UISplitter)
+    // })
 
     it('has default options if no options are passed to construtor', () => {
         const newSplit = new UISplitter(['#a', '#b'])

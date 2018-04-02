@@ -1,4 +1,5 @@
 import resolve from 'rollup-plugin-node-resolve'
+import buble from 'rollup-plugin-buble';
 import commonjs from 'rollup-plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import camelCase from 'lodash.camelcase'
@@ -23,13 +24,17 @@ export default [{
             file: pkg['main'],
             name: camelCase(libraryName),
             format: 'umd',
-            sourcemap: true
+            sourcemap: true,
+            plugins: [
+                buble()
+            ],
         },
         {
             file: pkg['minified:main'],
             name: camelCase(libraryName),
             format: 'umd',
             plugins: [
+                buble(),
                 uglify({ output: { comments: /^!/, }, }, minify)
             ],
             sourcemap: true
@@ -49,9 +54,9 @@ export default [{
     input: `spec/${libraryName}.test.ts`,
     output: [
         {
-            file: pkg['test:es5'],
             name: camelCase(libraryName),
-            format: 'cjs'
+            format: 'umd',
+            file: pkg['test:es5']
         },
     ],
     external: ['UISplitter', 'UISplitterOptions', 'defaultOptions'],
@@ -63,5 +68,6 @@ export default [{
             "useTsconfigDeclarationDir": false,
             "tsconfig": "tsconfig.test.json"
         }),
+        buble()
     ],
 }]
