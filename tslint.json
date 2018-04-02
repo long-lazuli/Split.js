@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "tslint-eslint-rules",
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "await-promise": false,
+    "ter-indent": [true, 4],
+    "max-len": ["warn", 100, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    "no-unused-variable": false,
+    "no-use-before-declare": false,
+    "return-undefined": false,
+    "no-floating-promises": false,
+    "no-unnecessary-qualifier": false,
+    "no-unnecessary-type-assertion": false,
+    "object-literal-key-quotes": [true, "consistent"],
+    "semicolon": [true, "never"],
+    "strict-type-predicates": false,
+    "ter-arrow-parens": [true, "as-needed", { "requireForBlockBody": false }]
+  }
+}
