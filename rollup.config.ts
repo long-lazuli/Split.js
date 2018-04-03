@@ -13,30 +13,60 @@ const pkg = require('./package.json')
 const libraryName = 'ui-splitter'
 
 export default [{
+
+    // UMD
     input: `src/${libraryName}.ts`,
     output: [
         {
             file: pkg['module'],
             format: 'es',
             sourcemap: true
-        },
+        }
+    ],
+    watch: {
+        include: 'src/**',
+    },
+    plugins: [
+        json(),
+        typescript({ useTsconfigDeclarationDir: true }),
+        commonjs(),
+        resolve(),
+        sourceMaps()
+    ]
+
+}, {
+
+    // es5
+    input: `src/${libraryName}.ts`,
+    output: [
         {
             file: pkg['main'],
             name: camelCase(libraryName),
-            format: 'umd',
-            sourcemap: true,
-            plugins: [
-                buble()
-            ],
-        },
+            format: 'es',
+            sourcemap: true
+        }
+    ],
+    watch: {
+        include: 'src/**',
+    },
+    plugins: [
+        json(),
+        typescript({ useTsconfigDeclarationDir: true }),
+        commonjs(),
+        resolve(),
+        buble(),
+        sourceMaps()
+    ]
+
+}, {
+
+    // minified
+    input: `src/${libraryName}.ts`,
+    output: [
         {
             file: pkg['minified:main'],
             name: camelCase(libraryName),
-            format: 'umd',
-            plugins: [
-                buble(),
-                uglify({ output: { comments: /^!/, }, }, minify)
-            ],
+            format: 'es',
             sourcemap: true
         },
     ],
@@ -48,9 +78,14 @@ export default [{
         typescript({ useTsconfigDeclarationDir: true }),
         commonjs(),
         resolve(),
+        buble(),
+        uglify({}, minify),
         sourceMaps()
-    ],
+    ]
+
 }, {
+
+    // Compile test for jasmine SpecRunner
     input: `spec/${libraryName}.test.ts`,
     output: [
         {
@@ -68,6 +103,9 @@ export default [{
             "useTsconfigDeclarationDir": false,
             "tsconfig": "tsconfig.test.json"
         }),
+        commonjs(),
+        resolve(),
         buble()
-    ],
+    ]
+
 }]
